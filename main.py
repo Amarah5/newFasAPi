@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from dataclasses import dataclass
 
 app = FastAPI()
 
@@ -14,5 +15,24 @@ async def get_welcome(name: str) -> str:
     return f"Welcome {name}!"
 
 
+"""
+ Créer une route POST /students, qui prend dans le corps de la requête une liste d’objet
+JSON qui a les attributs suivants :
+- Reference, de type chaîne de caractères
+- FirstName, de type chaîne de caractères
+- LastName, de type chaîne de caractères
+- Age, de type nombre entier
+
+"""
+
+@dataclass
+class Students:
+    References: str
+    First_name: str
+    Last_name: str
+    age: int
 
 
+@app.post("/students")
+async def create_student(student: Students) -> Students:
+    return student
