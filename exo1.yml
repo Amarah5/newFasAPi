@@ -1,0 +1,17 @@
+openapi: 3.0.3
+info:
+  title: Ping API
+  description: Une api ping
+  version: 1.0.0
+paths:
+  /ping:
+    get:
+      summary: Retuens pong
+      responses:
+        '200':
+          description: Pong response
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: pong
