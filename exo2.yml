@@ -1,0 +1,72 @@
+openapi: 3.0.3
+info:
+  title: Users API
+  description: An API to manage users with pagination
+  version: 1.0.0
+paths:
+  /users:
+    get:
+      summary: List users with pagination
+      parameters:
+        - in: query
+          name: page
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+          description: Page index (>= 1)
+          example: 1
+        - in: query
+          name: size
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+          description: Page size
+          example: 20
+      responses:
+        '200':
+          description: List of found users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+              examples:
+                sample:
+                  value:
+                    - id: 1
+                      name: Alice
+                      email: alice@example.com
+                    - id: 2
+                      name: Bob
+                      email: bob@example.com
+        '400':
+          description: Bad types for provided query parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                error: Bad types for provided query parameters
+components:
+  schemas:
+    User:
+      type: object
+      required: [id, name, email]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+          format: email
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
