@@ -70,3 +70,4 @@ components:
       properties:
         error:
           type: string
+          example: Bad types for provided query parameters
